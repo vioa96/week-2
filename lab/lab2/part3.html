@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--stylesheet imports-->
+    <link rel="stylesheet" href="leaflet.css" />
+  </head>
+  <body>
+
+    <!--left panel-->
+    <div style="position: absolute; left: 0px; width: 400px; top: 0; bottom: 0;"></div>
+    <!--map-->
+    <div id="map" style="position: absolute; right: 0; left: 400px; top: 0; bottom: 0;"></div>
+
+    <!--javascript imports-->
+    <script src="leaflet.js"></script>
+    <script src="part4-data-clean.js"></script>
+    <script src="part4-data-dirty.js"></script>
+
+    <script>
+
+    /*#### Part 3
+
+    Now that things are more organized, we can think about the
+    readability and reuse of our functions. Refactor your code so that
+    the only function with side-effects is the one that places objects on
+    the map.
+
+    ```javascript
+    var a = "Something"
+
+    // Side effects
+    function changeA() {
+      a = "Something else";
+    }
+    changeA()
+
+    // Pure - no side-effects
+    function pureFunction() {
+      return "Something else";
+    }
+    a = pureFunction()
+    */
+    var a=bikeArrayClean;
+    function changeA(){
+      a=bikeArrayDirty;
+      clean(a);
+    };
+    changeA();
+
+    var filter=function(dataset){
+      var dataFiltered=[];
+      for(var i=0; i<dataset.length; i++){
+        if(parseInt(dataset[i][dataset[i].length-1])>20){
+          dataFiltered.push(dataset[i]);
+        }
+
+      };
+      leaf();
+      marker(dataFiltered);
+    };
+
+    /* =====================
+
+    End code to filter data
+
+    ===================== */
+
+    /*clean data*/
+    var clean=function(data){
+        var dataclean=[];
+        for(var m=0; m<data.length; m++){
+          if(data[m].length===4){
+            dataclean.push(data[m]);
+          }
+
+        };
+        filter(dataclean);
+    };
+
+
+    var leaf = function(){
+      var map = L.map('map', {
+        center: [39.9522, -75.1639],
+        zoom: 14
+      });
+
+      var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains: 'abcd',
+        minZoom: 0,
+        maxZoom: 20,
+        ext: 'png'
+      }).addTo(map);
+    };
+
+
+    /* =====================
+
+    Start code to add markers to map
+
+    ===================== */
+    var marker= function(newdata){
+      for (var n=0; n< newdata.length; n++){
+        if(typeof(parseInt(newdata[n]))==="number"){
+          L.marker([parseFloat(newdata[n][1]), parseFloat(newdata[n][0])]).bindPopup(newdata[n][2]).addTo(map)
+        }
+      }
+
+    };
+
+    </script>
+  </body>
+</html>

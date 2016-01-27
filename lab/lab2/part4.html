@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+
+    <script>
+    /*#### Part 4
+
+    It is important to be able to think about functions abstractly. When
+    properly written, they can be popped in and out of your code almost
+    seemlessly. See if you can rewrite the code you've written inside the
+    loop to use all of the functions you wrote without saving anything to
+    a variable. If your functions are written purely (all but the last
+    one, which necessarily accessses the map) you will be able to chain
+    function calls together into a data pipeline.
+    */
+
+    function(){
+      var a=bikeArrayClean;
+      function changeA(){
+        a=bikeArrayDirty;
+        clean(a);
+      };
+      changeA();
+
+      var filter=function(dataset){
+        var dataFiltered=[];
+        for(var i=0; i<dataset.length; i++){
+          if(parseInt(dataset[i][dataset[i].length-1])>20){
+            dataFiltered.push(dataset[i]);
+          }
+
+        };
+        leaf();
+        marker(dataFiltered);
+      };
+
+      /* =====================
+
+      End code to filter data
+
+      ===================== */
+
+      /*clean data*/
+      var clean=function(data){
+          var dataclean=[];
+          for(var m=0; m<data.length; m++){
+            if(data[m].length===4){
+              dataclean.push(data[m]);
+            }
+
+          };
+          filter(dataclean);
+      };
+
+
+      var leaf = function(){
+        var map = L.map('map', {
+          center: [39.9522, -75.1639],
+          zoom: 14
+        });
+
+        var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+          attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          subdomains: 'abcd',
+          minZoom: 0,
+          maxZoom: 20,
+          ext: 'png'
+        }).addTo(map);
+      };
+
+
+      /* =====================
+
+      Start code to add markers to map
+
+      ===================== */
+      var marker= function(newdata){
+        for (var n=0; n< newdata.length; n++){
+          if(typeof(parseInt(newdata[n]))==="number"){
+            L.marker([parseFloat(newdata[n][1]), parseFloat(newdata[n][0])]).bindPopup(newdata[n][2]).addTo(map)
+          }
+        }
+
+      }
+    }
+
+
+
+    </script>
+  </body>
+</html>

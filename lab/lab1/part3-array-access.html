@@ -63,12 +63,27 @@
 
     ===================== */
 
-    L.marker([0, 0]).addTo(map);
-    L.marker([0, 0]).addTo(map);
-    L.marker([0, 0]).addTo(map);
+    L.marker([39.953575, -75.188153]).addTo(map);
+    L.marker([39.953614, -75.195004]).addTo(map);
+    L.marker([39.953679, -75.192942]).addTo(map);
 
-    /* =====================
+    var whitedog=[39.953575, -75.188153, 'whitedogcafe'];
+    var inn=[39.953614, -75.195004,'innhotel'];
+    var sanaom=[39.953679, -75.192942, 'sansom'];
 
+    var restaurantData=[whitedog, inn, sanaom];
+
+    var csv=[39.953630, -75.195789, 'csv'];
+    var sheraton=[39.953117, -75.192677,'sheraton'];
+    restaurantData.push(csv,sheraton);
+
+    for (var i=0; i<restaurantData.length; i++){
+      console.log(restaurantData[i]);
+      L.marker([restaurantData[i][0],restaurantData[i][1]]).addTo(map).bindPopup(restaurantData[i][2]).openPopup();
+    }
+
+
+/* =====================
     End code
 
     ===================== */

@@ -52,15 +52,28 @@
       // Store sum you compute in this variable:
       var yourSum = 0;
 
+      var sumAt=function(i){
+        console.log(i,theArray[i])
+        if (typeof theArray[i] === 'string') {         // String case
+          yourSum = yourSum + theArray[i].length
+        } else if (typeof theArray[i] === 'number') {  // Number case
+          yourSum = yourSum + theArray[i]
+        } else {                                      // Otherwise
+          console.log("Not sure how to proceed with value:", theArray[i])
+        }
+      }
       // Refactor the work above into a few different functions that are reusable to the extent that you can
-      for (var i = 0; i < theArray.length, i++) { /* Do stuff here */ }
+      for (var i = 0; i < theArray.length; i++) {
+       sumAt(i);
+      }
 
       /* =====================
 
       End code
 
       ===================== */
-      console.log("Success: ", yourSum === 169)
+      console.log(yourSum);
+      console.log("Success: ", 'Ithink the value is', yourSum)
     </script>
   </body>
 </html>

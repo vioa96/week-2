@@ -58,16 +58,46 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var jsonToCsv = function(json) {
+        var obj=["LNG", "LAT", "OBJECTID", "NAME", "ORGANIZATION", "ZIP", "PHONE", "WEBSITE", "DENTAL_PHONE", "FULL_ADDRESS"];
+        console.log(obj);
+        for (var n=0;n<healthCenters.length;n++){
+          console.log([json[n].LNG,json[n].LAT,json[n].OBJECTID,json[n].NAME,json[n].ORGANIZATION,json[n].ZIP,json[n].PHONE,json[n].WEBSITE,json[n].DENTAL_PHONE,json[n].FULL_ADDRESS]); 
+        }
 
 
-      var addMarkers = function(map) {};
+      };
+
+
+      var addMarkers = function(map) {
+        var data = healthCenters;
+        var dataFiltered=[];
+
+        for(var i=0; i<data.length; i++){
+          if((data[i].ZIP>=19140)&&(data[i].ZIP<=19149)){
+            dataFiltered.push(data[i]);
+          }
+
+        }
+
+        console.log(dataFiltered)
+        for (var n=0; n< dataFiltered.length; n++){
+          console.log([dataFiltered[n].LAT, dataFiltered[n].LNG])
+          L.marker([dataFiltered[n].LAT, dataFiltered[n].LNG]).addTo(map).bindPopup(dataFiltered[n].NAME).openPopup();
+        }
+      };
 
       /* =====================
 
       End code
 
       ===================== */
+
+
+
+
+
+
 
 
       jsonToCsv(healthCenters);
